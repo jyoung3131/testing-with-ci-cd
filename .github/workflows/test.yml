@@ -1,4 +1,4 @@
-name: Grade Project Continuous Integration
+name: Grade Project Test
 
 # it makes sense to run unit test CI on push
 # but there are many triggers available: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
@@ -11,8 +11,8 @@ on:
   push:
     branches:
       - 'main'
-    paths:
-      - '**.py'
+#    paths:
+#      - '**.py'
 
 jobs:
   test: # <-- this job name is totally up to you
