@@ -1,0 +1,44 @@
+name: Grade Project Continuous Integration
+
+# it makes sense to run unit test CI on push
+# but there are many triggers available: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+# notable options are:
+# "pull_request" might be a better option than push for heavy duty integration testing that requires actions such as spinning up servers or running database migrations
+# "workflow_dispatch" facilitates manual invocation
+# "schedule" if you feel like the workflow requires a cron schedule
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '**.py'
+
+jobs:
+  test: # <-- this job name is totally up to you
+    runs-on: ubuntu-latest # <-- usually ubuntu-latest, windows-latest, or macos-latest
+    strategy:
+      matrix: # <-- indicates we want to run this test job in a parametrized fashion, in this case specifying multiple Python versions
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4 # <-- every job runs on a clean runner, so you almost always start a job by checking out the code
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5 # <-- this is a GitHub Marketplace action: https://github.com/actions/setup-python
+        # GitHub Marketplace: https://github.com/marketplace - Always keep an eye on the versions and keep them updated, i.e. that "@v5" here or "@v4" on the checkout action above
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Test with pytest
+        run: |
+          coverage run -m pytest
+          coverage html
