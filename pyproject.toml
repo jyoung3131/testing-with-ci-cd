@@ -1,5 +1,5 @@
 [project]
-name="PVNet"
+name="CI_CD_Demo_Grade_Project"
 version="0.1"
 description = "CI/CD Demonstration Project"
 readme = {file = "README.md", content-type = "text/markdown"}
