@@ -1,8 +1,9 @@
 [project]
 name="PVNet"
 description = "CI/CD Demonstration Project"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {text = "MIT License"}
 authors = [{name="Katarzyna Rachwal", email="krachwal3@gatech.edu"}]
-dynamic = ["readme"]
 [tool.pytest.ini_options]
 markers = [
     "average: used to mark all tests associated with averaging grades",
@@ -10,5 +11,3 @@ markers = [
     "highest: used to mark tests associated with identfying the highest grade",
     "lowest: used to mark tests associated with identifying the lowest grade"
 ]
-[tool.setuptools.dynamic]
-readme = {file = "README.md", content-type = "text/markdown"}
