@@ -1,5 +1,6 @@
 [project]
 name="PVNet"
+version="0.1"
 description = "CI/CD Demonstration Project"
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {text = "MIT License"}
