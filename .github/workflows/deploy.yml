@@ -5,6 +5,10 @@ on:
   # normally you would see a "release" trigger here or a "create: tags: ..." trigger because releases are usually tagged
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
