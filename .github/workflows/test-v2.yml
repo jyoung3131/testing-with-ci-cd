@@ -1,0 +1,41 @@
+name: Grade Project Test - V2
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  test-v2: # updated the job name
+    runs-on: ubuntu-latest # <-- usually ubuntu-latest, windows-latest, or macos-latest
+   
+    steps:
+      - uses: actions/checkout@v4
+            
+      - name: Set up Python
+        uses: actions/setup-python@v5 
+        with:
+          python-version: '3.10'
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      #Run all the tests with pytest and check coverage 
+      - name: Test with pytest
+        run: |
+          coverage run -m pytest
+          coverage xml -o coverage-v2.xml
+
+      #The Artifacts box will show up on the Actions tab under this specific run, even if there is an error!
+      - name: Upload pytest coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results-v2
+          path: coverage-v2.xml
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
