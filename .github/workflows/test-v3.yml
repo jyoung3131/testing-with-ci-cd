@@ -1,4 +1,4 @@
-name: Grade Project Test
+name: Grade Project Test - V3
 
 # it makes sense to run unit test CI on push
 # but there are many triggers available: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
@@ -15,7 +15,7 @@ on:
 #      - '**.py'
 
 jobs:
-  test: # <-- this job name is totally up to you
+  test-v3:
     runs-on: ubuntu-latest # <-- usually ubuntu-latest, windows-latest, or macos-latest
     strategy:
       matrix: # <-- indicates we want to run this test job in a parametrized fashion, in this case specifying multiple Python versions
